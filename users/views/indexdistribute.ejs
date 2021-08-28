@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('partials/head', {title: title}) %>
+  </head>
+  <body>
+    <%- include('partials/header', {header: title}) %>
+    <%- include('partials/header', {header: userName}) %>
+    <p>Times here: <%= count %></p>
+    <p><button onclick="location = '/logout'">Logout</button></p>
+  </body>
+</html>

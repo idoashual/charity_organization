@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head', {title: title}) %>
+    <script>
+        async function dummy() {
+            const response= await fetch('/operation/adddist',
+            {
+                method: 'POST'
+            }
+            )
+        }
+        async function buildRows() {
+            let users = [];
+            $tbody = $("#tbody");
+            try {
+                points =  await (await fetch(`/operation/list`, {credentials: 'same-origin'})).json();
+            } catch (err) {
+                console.error(er);
+            }
+            let template = $($('#row-template').html());
+            points.forEach(point => {
+                $row = template.clone();
+                $row.find("#country").text(point.country);
+                $row.find("#city").text(point.city);
+                $row.find("#street").text(point.street);
+                $row.find("#number").text(point.number);
+                $row.find("#food").text(point.food);
+                $row.find("#medicine").text(point.medicine);
+                $row.appendTo($tbody);
+            });
+        }
+        $(() => {
+            buildRows();
+        });
+
+        document.getElementById('datePicker').value = new Date().toDateInputValue();
+    </script>
+</head>
+<body>
+<%- include('partials/header', {header: 'צור חלוקה'}) %>
+<div>
+    <input type="date" id="datePicker" name="trip-start"/>
+</div>
+<table class="table table-hover">
+    <thead class="thead-inverse">
+    <tr>
+        <th>Country</th>
+        <th>City</th>
+        <th class="text-center">Street</th>
+        <th>Number</th>
+        <th>Food</th>
+        <th>Medicine</th>  
+        <th class="text-center"></th> 
+    </tr>
+    </thead>
+    <tbody id="tbody">
+        <script id="row-template" type="text/x-custom-template"><%- include('partials/point', {admin: admin} ) %></script>
+    </tbody>
+</table>
+<!-- <p>
+    <button onclick="location = '/users/add'">Add user</button>
+</p> -->
+<p>
+    <button onclick="dummy()">המשך</button>
+</p>
+<p>
+    <button onclick="location = '/logout'">Logout</button>
+</p>
+<p>
+    <button onclick="location = '/'">Home</button>
+</p>
+</body>
+</html>
