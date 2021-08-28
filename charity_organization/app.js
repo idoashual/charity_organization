@@ -12,7 +12,7 @@ let index = require('./routes/index');
 let users = require('./routes/users');
 let login = require('./routes/login');    // it will be our controller for logging in/out
 let operation = require('./routes/operation');
-console.log("hello")
+
 let app = express();
 
 (async () => {
